@@ -15,7 +15,7 @@
        http://www.springframework.org/schema/tx
        http://www.springframework.org/schema/tx/spring-tx.xsd">
        <!--指明 controller 所在包，并扫描其中的注解-->
-       <context:component-scan base-package="com.mageeyang.eit"/>
+       <context:component-scan base-package="com.mageeyang.eit.controller"/>
        <!-- 静态资源(js、image等)的访问 -->
        <mvc:default-servlet-handler/>
        <!-- 开启注解 -->
@@ -41,5 +41,12 @@
                          transaction-manager-ref="transactionManager"
                          entity-manager-factory-ref="entityManagerFactory"/>
        <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+
+       <!--该Bean是用于获取Spring的bean实例的-->
+       <bean id="spring" class="com.mageeyang.eit.core.util.BeanUtils"/>
+       <!-- 该Bean是专门在Spring启动完成后执行处理初始化工作的-->
+       <bean  class="com.mageeyang.eit.service.InstantiationTracingBeanPostProcessor"></bean>
+       <!--下面是定义的一些Spring的服务bean-->
+       <bean id="marketGroupService" class="com.mageeyang.eit.service.MarketGroupService" autowire="byName"></bean>
 
 </beans>
