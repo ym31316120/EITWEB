@@ -1,6 +1,8 @@
 package com.mageeyang.eit.service;
 
 import com.mageeyang.eit.db.model.InvmarketgroupsEntity;
+import com.mageeyang.eit.db.model.InvtypesEntity;
+import com.mageeyang.eit.db.repository.InvTypesRepository;
 import com.mageeyang.eit.db.repository.MarketGroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -13,6 +15,9 @@ public class MarketGroupService {
 
     @Autowired
     private MarketGroupRepository marketGroupRepository;
+
+    @Autowired
+    private InvTypesRepository invTypesRepository;
 
     public void getChildListListByParentId(List<InvmarketgroupsEntity> marketGroupList, int parentGroupID) {
         List<InvmarketgroupsEntity> marketList = marketGroupRepository.findByparentGroupId(parentGroupID);
@@ -28,5 +33,9 @@ public class MarketGroupService {
     public InvmarketgroupsEntity getMarketGroupEntity(int marketGroupID){
         InvmarketgroupsEntity invmarketgroupsEntity = marketGroupRepository.findBymarketGroupId(marketGroupID);
         return invmarketgroupsEntity;
+    }
+
+    public List<InvtypesEntity> getTypesByMarketGroupIds(List<Integer> args){
+        return invTypesRepository.findBymarketGroupIdIn(args);
     }
 }

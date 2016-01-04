@@ -4,12 +4,12 @@
     <persistence-unit name="defaultPersistenceUnit">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <properties>
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/eve_original"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://192.168.1.115:3306/eve"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
             <property name="hibernate.connection.username" value="root"/>
             <property name="hibernate.connection.password" value="19841206"/>
             <property name="hibernate.archive.autodetection" value="class"/>
-            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.show_sql" value="false"/>
             <property name="hibernate.format_sql" value="true"/>
             <property name="hbm2ddl.auto" value="update"/>
             <property name="hibernate.connection.autoReconnect" value="true"/>

@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by Administrator on 2016/1/2.
  */
 @Entity
-@Table(name = "invmarketgroups", schema = "", catalog = "eve_original")
+@Table(name = "invmarketgroups", schema = "", catalog = "eve")
 public class InvmarketgroupsEntity {
     private int marketGroupId;
     private Integer parentGroupId;

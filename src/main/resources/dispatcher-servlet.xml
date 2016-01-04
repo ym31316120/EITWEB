@@ -48,5 +48,6 @@
        <bean  class="com.mageeyang.eit.service.InstantiationTracingBeanPostProcessor"></bean>
        <!--下面是定义的一些Spring的服务bean-->
        <bean id="marketGroupService" class="com.mageeyang.eit.service.MarketGroupService" autowire="byName"></bean>
+       <bean id="priceRequestService" class="com.mageeyang.eit.service.PriceRequestService" autowire="byName"></bean>
 
 </beans>

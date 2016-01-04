@@ -7,7 +7,7 @@ import java.math.BigDecimal;
  * Created by Administrator on 2016/1/4.
  */
 @Entity
-@Table(name = "invtypes", schema = "", catalog = "eve_original")
+@Table(name = "invtypes", schema = "", catalog = "eve")
 public class InvtypesEntity {
     private int typeId;
     private Integer groupId;
@@ -20,8 +20,8 @@ public class InvtypesEntity {
     private Short raceId;
     private BigDecimal basePrice;
     private Byte published;
-    private Long marketGroupId;
-    private Long iconId;
+    private Integer marketGroupId;
+    private Integer iconId;
     private Long soundId;
 
     @Id
@@ -136,21 +136,21 @@ public class InvtypesEntity {
 
     @Basic
     @Column(name = "marketGroupID", nullable = true, insertable = true, updatable = true)
-    public Long getMarketGroupId() {
+    public Integer getMarketGroupId() {
         return marketGroupId;
     }
 
-    public void setMarketGroupId(Long marketGroupId) {
+    public void setMarketGroupId(Integer marketGroupId) {
         this.marketGroupId = marketGroupId;
     }
 
     @Basic
     @Column(name = "iconID", nullable = true, insertable = true, updatable = true)
-    public Long getIconId() {
+    public Integer getIconId() {
         return iconId;
     }
 
-    public void setIconId(Long iconId) {
+    public void setIconId(Integer iconId) {
         this.iconId = iconId;
     }
 

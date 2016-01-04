@@ -3,16 +3,21 @@ package com.mageeyang.eit.controller;
 import com.mageeyang.eit.core.cache.EitConfigInfo;
 import com.mageeyang.eit.db.model.InvmarketgroupsEntity;
 import com.mageeyang.eit.db.model.InvtypesEntity;
+import com.mageeyang.eit.db.model.PricehistoryEntity;
 import com.mageeyang.eit.db.repository.InvTypesRepository;
 import com.mageeyang.eit.db.repository.MarketGroupRepository;
 import com.mageeyang.eit.core.util.BeanUtils;
+import com.mageeyang.eit.db.repository.PricehistoryRepository;
 import com.mageeyang.eit.service.MarketGroupService;
+import com.mageeyang.eit.service.PriceRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,11 +33,18 @@ public class TestController {
     @Autowired
     private InvTypesRepository invTypesRepository;
 
+    @Autowired
+    private PricehistoryRepository pricehistoryRepository;
+
     @RequestMapping("/test")
     public String test(ModelMap modelMap){
         // 找到user表里的所有记录
         List<InvtypesEntity> userList = new ArrayList<InvtypesEntity>();
-        userList = invTypesRepository.findBymarketGroupId(Long.parseLong("1857"));
+        userList = invTypesRepository.findBymarketGroupId(1857);
+
+        PriceRequestService priceRequestService = BeanUtils.getBean("priceRequestService");
+        priceRequestService.getPrice();
+
 //        MarketGroupService t = BeanUtils.getBean("marketGroupService");
 //        t.getChildListListByParentId(userList,1861);
        // System.out.println(EitConfigInfo.getPrimitiveList().toString());

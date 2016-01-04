@@ -3,7 +3,10 @@ package com.mageeyang.eit.service;
 import com.mageeyang.eit.core.cache.EitConfigInfo;
 import com.mageeyang.eit.core.util.BeanUtils;
 import com.mageeyang.eit.db.model.InvmarketgroupsEntity;
+import com.mageeyang.eit.db.model.InvtypesEntity;
+import com.mageeyang.eit.db.model.PricehistoryEntity;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,15 +15,15 @@ import java.util.List;
  */
 public class InitService {
     /**
-     *  1857    ¿óÊ¯²úÎï
-     *  499     ÔÂ¿ó
-     *  1332    ÐÐÐÇ²úÎï
-     *  1861    ´òÀÌ¼þ
-     *  1033    ±ù¿ó²úÎï
-     *  860     Æø¿ó²úÎï
-     *  4       ´¬Ö»
-     *  9       ½¢´¬×°±¸
-     *  11      µ¯Ò©
+     *  1857    ï¿½ï¿½Ê¯ï¿½ï¿½ï¿½ï¿½
+     *  499     ï¿½Â¿ï¿½
+     *  1332    ï¿½ï¿½ï¿½Ç²ï¿½ï¿½ï¿½
+     *  1861    ï¿½ï¿½ï¿½Ì¼ï¿½
+     *  1033    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     *  860     ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     *  4       ï¿½ï¿½Ö»
+     *  9       ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½
+     *  11      ï¿½ï¿½Ò©
      */
     private static final int [] MARKETGROUPLIST ={1857,499,1332,1861,1033,860,4,9,11};
     public static void initEitConfig(){
@@ -40,5 +43,27 @@ public class InitService {
         }
         EitConfigInfo.setPrimitiveList(primitiveList);
 
+        //--------------------------------
+        List<InvtypesEntity> invtypesEntityList = marketGroupService.getTypesByMarketGroupIds(primitiveList);
+        ArrayList<String> typeslist = new ArrayList<String>();
+        if(invtypesEntityList.size()>0){
+            int row = (int)Math.floor(invtypesEntityList.size() / EitConfigInfo.COW_NUM);
+            for(int i=0;i<(row+1);i++){
+                String typeidstr = "";
+                for(int j=0;j<EitConfigInfo.COW_NUM;j++){
+                    int index = i*EitConfigInfo.COW_NUM+j;
+                    if(index<invtypesEntityList.size()){
+                        typeidstr = typeidstr +","+ invtypesEntityList.get(index).getTypeId();
+                    }else{
+                        break;
+                    }
+                }
+                typeidstr = typeidstr.substring(1);
+                if(!typeidstr.equals("")){
+                    typeslist.add(typeidstr);
+                }
+            }
+            EitConfigInfo.setTypeslist(typeslist);
+        }
     }
 }
