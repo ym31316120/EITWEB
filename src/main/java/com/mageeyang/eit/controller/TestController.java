@@ -42,8 +42,7 @@ public class TestController {
         List<InvtypesEntity> userList = new ArrayList<InvtypesEntity>();
         userList = invTypesRepository.findBymarketGroupId(1857);
 
-        PriceRequestService priceRequestService = BeanUtils.getBean("priceRequestService");
-        priceRequestService.getPrice();
+
 
 //        MarketGroupService t = BeanUtils.getBean("marketGroupService");
 //        t.getChildListListByParentId(userList,1861);

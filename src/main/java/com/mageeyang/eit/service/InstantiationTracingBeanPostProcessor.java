@@ -15,9 +15,12 @@ public class InstantiationTracingBeanPostProcessor implements ApplicationListene
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         if(event.getApplicationContext().getParent() == null){
-            //root application context 没有parent，他就是老大.
-            //初始化需要获取的各种原材料价格的TYPEID的列表
+            //root application context 没锟斤拷parent锟斤拷锟斤拷锟斤拷锟斤拷锟较达拷.
+            //锟斤拷始锟斤拷锟斤拷要锟斤拷取锟侥革拷锟斤拷原锟斤拷锟较价革拷锟絋YPEID锟斤拷锟叫憋拷
             InitService.initEitConfig();
+
+//            PriceRequestService priceRequestService = BeanUtils.getBean("priceRequestService");
+//            priceRequestService.getPrice();
         }
     }
 }
