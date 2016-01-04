@@ -2,6 +2,8 @@ package com.mageeyang.eit.controller;
 
 import com.mageeyang.eit.core.cache.EitConfigInfo;
 import com.mageeyang.eit.db.model.InvmarketgroupsEntity;
+import com.mageeyang.eit.db.model.InvtypesEntity;
+import com.mageeyang.eit.db.repository.InvTypesRepository;
 import com.mageeyang.eit.db.repository.MarketGroupRepository;
 import com.mageeyang.eit.core.util.BeanUtils;
 import com.mageeyang.eit.service.MarketGroupService;
@@ -23,13 +25,17 @@ public class TestController {
     @Autowired
     private MarketGroupRepository marketGroupRepository;
 
+    @Autowired
+    private InvTypesRepository invTypesRepository;
+
     @RequestMapping("/test")
     public String test(ModelMap modelMap){
         // 找到user表里的所有记录
-        List<InvmarketgroupsEntity> userList = new ArrayList<InvmarketgroupsEntity>();
+        List<InvtypesEntity> userList = new ArrayList<InvtypesEntity>();
+        userList = invTypesRepository.findBymarketGroupId(Long.parseLong("1857"));
 //        MarketGroupService t = BeanUtils.getBean("marketGroupService");
 //        t.getChildListListByParentId(userList,1861);
-        System.out.println(EitConfigInfo.getPrimitiveList().toString());
+       // System.out.println(EitConfigInfo.getPrimitiveList().toString());
         // 将所有记录传递给返回的jsp页面
         modelMap.addAttribute("userList", userList);
 //

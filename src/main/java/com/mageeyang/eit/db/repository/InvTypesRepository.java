@@ -10,4 +10,5 @@ import java.util.List;
  */
 public interface InvTypesRepository extends JpaRepository<InvtypesEntity,Integer> {
     public List<InvtypesEntity> findBytypeId(int typeid);
+    public List<InvtypesEntity> findBymarketGroupId(Long marketGroupId);
 }

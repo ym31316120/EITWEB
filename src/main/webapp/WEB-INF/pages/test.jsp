@@ -27,8 +27,8 @@
 
         <c:forEach items="${userList}" var="user">
             <tr>
-                <td>${user.marketGroupId}</td>
-                <td>${user.marketGroupName}</td>
+                <td>${user.typeId}</td>
+                <td>${user.typeName}</td>
                 <td>${user.description}</td>
                 <td>
                     234
