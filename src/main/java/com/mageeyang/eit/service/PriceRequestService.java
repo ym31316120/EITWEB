@@ -18,10 +18,6 @@ import java.util.List;
  * Created by Administrator on 2016/1/4.
  */
 public class PriceRequestService {
-    private static final int COW_NUM = 50;
-    private static final String URL_BEGIN = "http://api.eve-central.com/api/marketstat/json?usesystem=30000142&typeid=";
-    private static final String USE_SYSTEM = "30000142";
-
 
     @Autowired
     private PricehistoryRepository pricehistoryRepository;
@@ -29,6 +25,9 @@ public class PriceRequestService {
     @Autowired
     private InvTypesRepository invTypesRepository;
 
+    /**
+     * 获取原材料的价格
+     */
     public void getPrice(){
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         List<PricehistoryEntity> pricehistoryEntityList = new ArrayList<PricehistoryEntity>();
@@ -36,7 +35,7 @@ public class PriceRequestService {
         ArrayList<JSONArray> priceJsonArrayList = new ArrayList<JSONArray>();
         HttpUtil httpUtil = new HttpUtil(10000);
         for(int i=0;i<1;i++){
-            String url = URL_BEGIN+typeslist.get(i);
+            String url = EitConfigInfo.URL_BEGIN+typeslist.get(i);
             JSONArray jsonArray = httpUtil.getJsonArray(url);
             priceJsonArrayList.add(jsonArray);
         }
@@ -53,7 +52,7 @@ public class PriceRequestService {
                 typeidString = typeidString.substring(1,typeidString.length()-1);
                 PricehistoryEntity pricehistoryEntity = new PricehistoryEntity();
                 pricehistoryEntity.setTypeid(Integer.parseInt(typeidString));
-                pricehistoryEntity.setSystems(USE_SYSTEM);
+                pricehistoryEntity.setSystems(EitConfigInfo.USE_SYSTEM);
                 pricehistoryEntity.setPricedate(timestamp);
                 //----------SELL----------------
                 pricehistoryEntity.setSellmin(sellJson.getBigDecimal("min"));
@@ -61,14 +60,20 @@ public class PriceRequestService {
                 pricehistoryEntity.setSellfive(sellJson.getBigDecimal("fivePercent"));
                 pricehistoryEntity.setSellavg(sellJson.getBigDecimal("avg"));
                 pricehistoryEntity.setSellvolume(sellJson.getDouble("volume"));
+                pricehistoryEntity.setSellmedian(sellJson.getBigDecimal("median"));
+                pricehistoryEntity.setSellwavg(sellJson.getBigDecimal("wavg"));
                 //----------BUY----------------
                 pricehistoryEntity.setBuymin(buyJson.getBigDecimal("min"));
                 pricehistoryEntity.setBuymax(buyJson.getBigDecimal("max"));
                 pricehistoryEntity.setBuyfive(buyJson.getBigDecimal("fivePercent"));
                 pricehistoryEntity.setBuyavg(buyJson.getBigDecimal("avg"));
                 pricehistoryEntity.setBuyvolume(buyJson.getDouble("volume"));
+                pricehistoryEntity.setBuymedian(buyJson.getBigDecimal("median"));
+                pricehistoryEntity.setBuywavg(buyJson.getBigDecimal("wavg"));
                 //-------------ALL------------------------
                 pricehistoryEntity.setAllavg(allJson.getBigDecimal("avg"));
+                pricehistoryEntity.setAllmedian(allJson.getBigDecimal("median"));
+                pricehistoryEntity.setAllwavg(allJson.getBigDecimal("wavg"));
                 pricehistoryEntityList.add(pricehistoryEntity);
             }
         }
@@ -78,4 +83,12 @@ public class PriceRequestService {
         }
 
     }
+
+    /**
+     * 统计蓝图的制造成本及利润
+     */
+    public void getBluePrice(){
+
+    }
+
 }

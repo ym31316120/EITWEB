@@ -15,8 +15,8 @@ public class InstantiationTracingBeanPostProcessor implements ApplicationListene
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         if(event.getApplicationContext().getParent() == null){
-            //root application context û��parent���������ϴ�.
-            //��ʼ����Ҫ��ȡ�ĸ���ԭ���ϼ۸��TYPEID���б�
+            //判断是否是root节点，如果是则执行初始化信息操作
+            //下方是初始化需要获取的原材料价格的typeid的列表，方便定时获取价格任务的读取
             InitService.initEitConfig();
 
 //            PriceRequestService priceRequestService = BeanUtils.getBean("priceRequestService");

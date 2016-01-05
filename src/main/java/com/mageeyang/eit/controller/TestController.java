@@ -8,6 +8,7 @@ import com.mageeyang.eit.db.repository.InvTypesRepository;
 import com.mageeyang.eit.db.repository.MarketGroupRepository;
 import com.mageeyang.eit.core.util.BeanUtils;
 import com.mageeyang.eit.db.repository.PricehistoryRepository;
+import com.mageeyang.eit.service.InitService;
 import com.mageeyang.eit.service.MarketGroupService;
 import com.mageeyang.eit.service.PriceRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class TestController {
     @Autowired
     private PricehistoryRepository pricehistoryRepository;
 
-    @RequestMapping("/test")
+    @RequestMapping("test")
     public String test(ModelMap modelMap){
         // 找到user表里的所有记录
         List<InvtypesEntity> userList = new ArrayList<InvtypesEntity>();
@@ -49,6 +50,9 @@ public class TestController {
        // System.out.println(EitConfigInfo.getPrimitiveList().toString());
         // 将所有记录传递给返回的jsp页面
         modelMap.addAttribute("userList", userList);
+
+
+
 //
 
 
