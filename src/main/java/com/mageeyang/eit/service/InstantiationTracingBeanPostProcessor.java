@@ -19,6 +19,9 @@ public class InstantiationTracingBeanPostProcessor implements ApplicationListene
             //下方是初始化需要获取的原材料价格的typeid的列表，方便定时获取价格任务的读取
             InitService.initEitConfig();
 
+            //初始化蓝图信息
+            InitService.initBluePrintInfo();
+
 //            PriceRequestService priceRequestService = BeanUtils.getBean("priceRequestService");
 //            priceRequestService.getPrice();
         }

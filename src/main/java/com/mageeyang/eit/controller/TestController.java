@@ -1,6 +1,7 @@
 package com.mageeyang.eit.controller;
 
 import com.mageeyang.eit.core.cache.EitConfigInfo;
+import com.mageeyang.eit.db.bean.BluePrintInfo;
 import com.mageeyang.eit.db.model.InvmarketgroupsEntity;
 import com.mageeyang.eit.db.model.InvtypesEntity;
 import com.mageeyang.eit.db.model.PricehistoryEntity;
@@ -44,19 +45,13 @@ public class TestController {
         List<InvtypesEntity> userList = new ArrayList<InvtypesEntity>();
         userList = invTypesRepository.findBymarketGroupId(1857);
 
-        BluePrintService bluePrintService = BeanUtils.getBean("bluePrintService");
-
-        System.out.println(bluePrintService.findByTypeIdAndActivityId(683,1).toString());
-
-
+        BluePrintInfo bluePrintInfo = EitConfigInfo.getBluePrintInfoHashMap().get(12006);
 
 //        MarketGroupService t = BeanUtils.getBean("marketGroupService");
 //        t.getChildListListByParentId(userList,1861);
        // System.out.println(EitConfigInfo.getPrimitiveList().toString());
         // 将所有记录传递给返回的jsp页面
-        modelMap.addAttribute("userList", userList);
-
-
+        modelMap.addAttribute("userList", bluePrintInfo);
 
 //
 
@@ -73,17 +68,5 @@ public class TestController {
         // 返回 pages 目录下的 userManage.jsp 页面
         return "test";
     }
-
-    private void getMarketGroupList(List<InvmarketgroupsEntity> marketGroupList,int parentGroupID){
-        List<InvmarketgroupsEntity> marketList = marketGroupRepository.findByparentGroupId(parentGroupID);
-        if(marketList!=null&&marketList.size()>0){
-            for(int i=0;i<marketList.size();i++){
-                InvmarketgroupsEntity invmarketgroupsEntity = marketList.get(i);
-                marketGroupList.add(invmarketgroupsEntity);
-                this.getMarketGroupList(marketGroupList, invmarketgroupsEntity.getMarketGroupId());
-            }
-        }
-    }
-
 
 }

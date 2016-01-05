@@ -17,7 +17,7 @@ public class BluePrintInfo {
 
     private Integer industryTime;  //蓝图制造的时间
 
-    private BigDecimal inventProbablity; //发明该蓝图的成功率
+    private double inventProbablity; //发明该蓝图的成功率
 
     private int line_num; //发明出该蓝图的流程数
 
@@ -57,11 +57,11 @@ public class BluePrintInfo {
         this.inventMaterial = inventMaterial;
     }
 
-    public BigDecimal getInventProbablity() {
+    public double getInventProbablity() {
         return inventProbablity;
     }
 
-    public void setInventProbablity(BigDecimal inventProbablity) {
+    public void setInventProbablity(double inventProbablity) {
         this.inventProbablity = inventProbablity;
     }
 

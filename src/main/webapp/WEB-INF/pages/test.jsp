@@ -19,21 +19,62 @@
 <c:if test="${!empty userList}">
     <table class="table table-bordered table-striped">
         <tr>
-            <th>ID</th>
-            <th>姓名</th>
-            <th>密码</th>
-            <th>操作</th>
+            <th>流程数</th>
+            <th>产物数量</th>
+            <th>制造的时间</th>
+            <th>成功率</th>
         </tr>
-
-        <c:forEach items="${userList}" var="user">
+        <tr>
+            <th>${userList.line_num}</th>
+            <th>${userList.product_num}</th>
+            <th>${userList.industryTime}</th>
+            <th>${userList.inventProbablity}</th>
+        </tr>
+        <tr>
+            <th>TYPEID</th>
+            <th>发明ID</th>
+            <th>需求数量</th>
+            <th>。。。</th>
+        </tr>
+        <c:forEach items="${userList.inventMaterial}" var="invent">
             <tr>
-                <td>${user.typeId}</td>
-                <td>${user.typeName}</td>
-                <td>${user.description}</td>
+                <td>${invent.typeId}</td>
+                <td>${invent.materialTypeId}</td>
+                <td>${invent.quantity}</td>
                 <td>
                     234
                 </td>
             </tr>
+        </c:forEach>
+        <tr>
+            <th>TYPEID</th>
+            <th>原材料ID</th>
+            <th>原材料数量</th>
+            <th>。。。</th>
+        </tr>
+        <c:forEach items="${userList.productMaterials}" var="material">
+            <tr>
+                <td>${material.industryactivitymaterialsEntity.typeId}</td>
+                <td>${material.industryactivitymaterialsEntity.materialTypeId}</td>
+                <td>${material.industryactivitymaterialsEntity.quantity}</td>
+                <td>
+                    234
+                </td>
+            </tr>
+            <c:if test="${!empty material.bluePrintInfo}">
+                <c:forEach items="${material.bluePrintInfo.productMaterials}" var="bpi">
+                    <tr>
+                        <td>${bpi.industryactivitymaterialsEntity.typeId}</td>
+                        <td>${bpi.industryactivitymaterialsEntity.materialTypeId}</td>
+                        <td>${bpi.industryactivitymaterialsEntity.quantity}</td>
+                        <td>
+                            234
+                        </td>
+                    </tr>
+
+                </c:forEach>
+
+            </c:if>
         </c:forEach>
     </table>
 </c:if>
