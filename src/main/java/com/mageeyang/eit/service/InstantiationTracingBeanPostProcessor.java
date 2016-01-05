@@ -20,7 +20,11 @@ public class InstantiationTracingBeanPostProcessor implements ApplicationListene
             InitService.initEitConfig();
 
             //初始化蓝图信息
-            InitService.initBluePrintInfo();
+//            InitService.initBluePrintInfo();
+
+
+            //初始化价格数据
+//            InitService.initPrice();
 
 //            PriceRequestService priceRequestService = BeanUtils.getBean("priceRequestService");
 //            priceRequestService.getPrice();

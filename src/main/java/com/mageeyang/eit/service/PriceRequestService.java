@@ -34,7 +34,7 @@ public class PriceRequestService {
         ArrayList<String> typeslist = EitConfigInfo.getTypeslist();
         ArrayList<JSONArray> priceJsonArrayList = new ArrayList<JSONArray>();
         HttpUtil httpUtil = new HttpUtil(10000);
-        for(int i=0;i<1;i++){
+        for(int i=0;i<typeslist.size();i++){
             String url = EitConfigInfo.URL_BEGIN+typeslist.get(i);
             JSONArray jsonArray = httpUtil.getJsonArray(url);
             priceJsonArrayList.add(jsonArray);

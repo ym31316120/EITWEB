@@ -19,6 +19,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -44,6 +46,19 @@ public class TestController {
         // 找到user表里的所有记录
         List<InvtypesEntity> userList = new ArrayList<InvtypesEntity>();
         userList = invTypesRepository.findBymarketGroupId(1857);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date startDate = null;
+        Date endDate = null;
+        try{
+            startDate = sdf.parse("2016-01-05"+" 00:00:00");
+            endDate = sdf.parse("2016-01-05"+" 23:59:59");
+        }catch(ParseException e){
+            e.printStackTrace();
+        }
+
+
+//        List<PricehistoryEntity> pricehistoryEntityLists = pricehistoryRepository.findByPricedateBetween(startDate,endDate);
+//        System.out.println(pricehistoryEntityLists.size());
 
         BluePrintInfo bluePrintInfo = EitConfigInfo.getBluePrintInfoHashMap().get(12006);
 
@@ -51,7 +66,7 @@ public class TestController {
 //        t.getChildListListByParentId(userList,1861);
        // System.out.println(EitConfigInfo.getPrimitiveList().toString());
         // 将所有记录传递给返回的jsp页面
-        modelMap.addAttribute("userList", bluePrintInfo);
+        modelMap.addAttribute("userList", userList);
 
 //
 

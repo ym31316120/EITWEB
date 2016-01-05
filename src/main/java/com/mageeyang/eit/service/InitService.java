@@ -164,4 +164,12 @@ public class InitService {
         bpi.setProductMaterials(bpmls);
         map.put(typeid, bpi);
     }
+
+    public static void initPrice(){
+        System.out.println("正在初始化原材料价格数据...");
+        PriceRequestService priceRequestService = BeanUtils.getBean("priceRequestService");
+        priceRequestService.getPrice();
+        System.out.println("初始化原材料价格数据结束");
+    }
+
 }
