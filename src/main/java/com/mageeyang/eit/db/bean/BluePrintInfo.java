@@ -2,22 +2,28 @@ package com.mageeyang.eit.db.bean;
 
 import com.mageeyang.eit.db.model.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2016/1/5.
  */
 public class BluePrintInfo {
-    private InvtypesEntity blueprint;
-    private ArrayList<BluePrintMaterialList> productMaterials;
-    private IndustryactivityproductsEntity productEntity;
-    private IndustryactivityproductsEntity inventEntity;
-    private ArrayList<IndustryactivitymaterialsEntity> inventMaterial;
-    private IndustryactivityprobabilitiesEntity inventProbablity;
-    private IndustryactivityEntity industryactivityEntity;
-    private InvtypesEntity productinfo;
+    private InvtypesEntity blueprint;  //蓝图信息
+    private List<BluePrintMaterialList> productMaterials; //蓝图原材料
+    private List<IndustryactivitymaterialsEntity> inventMaterial; //发明该蓝图的原材料
+    private InvtypesEntity productinfo; //蓝图产物基本信息
 
-    private double Mt;
+    private Integer industryTime;  //蓝图制造的时间
+
+    private BigDecimal inventProbablity; //发明该蓝图的成功率
+
+    private int line_num; //发明出该蓝图的流程数
+
+    private int product_num;//生产该蓝图的产物数量
+
+    private double Mt;  //蓝图的材料研究效率
 
     public InvtypesEntity getBlueprint() {
         return blueprint;
@@ -27,52 +33,44 @@ public class BluePrintInfo {
         this.blueprint = blueprint;
     }
 
-    public ArrayList<BluePrintMaterialList> getProductMaterials() {
+    public List<BluePrintMaterialList> getProductMaterials() {
         return productMaterials;
     }
 
-    public void setProductMaterials(ArrayList<BluePrintMaterialList> productMaterials) {
+    public void setProductMaterials(List<BluePrintMaterialList> productMaterials) {
         this.productMaterials = productMaterials;
     }
 
-    public IndustryactivityproductsEntity getProductEntity() {
-        return productEntity;
+    public int getProduct_num() {
+        return product_num;
     }
 
-    public void setProductEntity(IndustryactivityproductsEntity productEntity) {
-        this.productEntity = productEntity;
+    public void setProduct_num(int product_num) {
+        this.product_num = product_num;
     }
 
-    public IndustryactivityproductsEntity getInventEntity() {
-        return inventEntity;
-    }
-
-    public void setInventEntity(IndustryactivityproductsEntity inventEntity) {
-        this.inventEntity = inventEntity;
-    }
-
-    public ArrayList<IndustryactivitymaterialsEntity> getInventMaterial() {
+    public List<IndustryactivitymaterialsEntity> getInventMaterial() {
         return inventMaterial;
     }
 
-    public void setInventMaterial(ArrayList<IndustryactivitymaterialsEntity> inventMaterial) {
+    public void setInventMaterial(List<IndustryactivitymaterialsEntity> inventMaterial) {
         this.inventMaterial = inventMaterial;
     }
 
-    public IndustryactivityprobabilitiesEntity getInventProbablity() {
+    public BigDecimal getInventProbablity() {
         return inventProbablity;
     }
 
-    public void setInventProbablity(IndustryactivityprobabilitiesEntity inventProbablity) {
+    public void setInventProbablity(BigDecimal inventProbablity) {
         this.inventProbablity = inventProbablity;
     }
 
-    public IndustryactivityEntity getIndustryactivityEntity() {
-        return industryactivityEntity;
+    public Integer getIndustryTime() {
+        return industryTime;
     }
 
-    public void setIndustryactivityEntity(IndustryactivityEntity industryactivityEntity) {
-        this.industryactivityEntity = industryactivityEntity;
+    public void setIndustryTime(Integer industryTime) {
+        this.industryTime = industryTime;
     }
 
     public InvtypesEntity getProductinfo() {
@@ -89,5 +87,13 @@ public class BluePrintInfo {
 
     public void setMt(double mt) {
         Mt = mt;
+    }
+
+    public int getLine_num() {
+        return line_num;
+    }
+
+    public void setLine_num(int line_num) {
+        this.line_num = line_num;
     }
 }

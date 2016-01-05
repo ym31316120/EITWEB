@@ -3,9 +3,8 @@ package com.mageeyang.eit.service;
 import com.mageeyang.eit.core.cache.EitConfigInfo;
 import com.mageeyang.eit.core.util.BeanUtils;
 import com.mageeyang.eit.db.bean.BluePrintInfo;
-import com.mageeyang.eit.db.model.InvmarketgroupsEntity;
-import com.mageeyang.eit.db.model.InvtypesEntity;
-import com.mageeyang.eit.db.model.PricehistoryEntity;
+import com.mageeyang.eit.db.bean.BluePrintMaterialList;
+import com.mageeyang.eit.db.model.*;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -29,7 +28,7 @@ public class InitService {
      */
     private static final int [] MARKETGROUPLIST ={1857,499,1332,1861,1033,860,4,9,11};
 
-    private  HashMap<Integer,BluePrintInfo> bluePrintInfoHashMap = new HashMap<Integer, BluePrintInfo>();
+
 
 
     /**
@@ -81,7 +80,9 @@ public class InitService {
      * 初始化蓝图信息
      */
     public static void initBluePrintInfo(){
+        HashMap<Integer,BluePrintInfo> bluePrintInfoHashMap = new HashMap<Integer, BluePrintInfo>();
         MarketGroupService marketGroupService = BeanUtils.getBean("marketGroupService");
+        BluePrintService bluePrintService = BeanUtils.getBean("bluePrintService");
         //首先获取所有的蓝图基础信息列表
         ArrayList<InvmarketgroupsEntity> bluemarketgroups = new ArrayList<InvmarketgroupsEntity>();
         marketGroupService.getChildListListByParentId(bluemarketgroups,2);
@@ -93,12 +94,67 @@ public class InitService {
         }
         List<InvtypesEntity> bluebaseinfo = marketGroupService.getTypesByMarketGroupIds(marketgroupids);
         for(int i=0;i<bluebaseinfo.size();i++){
-            BluePrintInfo bpi = new BluePrintInfo();
 
-
+            int typeid = bluebaseinfo.get(i).getTypeId();
+            if(bluePrintInfoHashMap.get(typeid)==null) {
+                createBluePrintInfo(bluePrintService, bluebaseinfo.get(i), bluePrintInfoHashMap);
+            }
         }
+        EitConfigInfo.setBluePrintInfoHashMap(bluePrintInfoHashMap);
 
-        System.out.println(marketgroupids.toString());
+    }
 
+    /**
+     * 创建蓝图信息
+     * @param bps   蓝图的服务对象
+     * @param ite   蓝图的基本信息
+     * @param map   对蓝图信息进行判断
+     */
+    public static void createBluePrintInfo(BluePrintService bps,InvtypesEntity ite,HashMap<Integer,BluePrintInfo> map){
+        BluePrintInfo bpi = new BluePrintInfo();
+        int typeid = ite.getTypeId();
+        //填入蓝图基本信息
+        bpi.setBlueprint(ite);
+        //填入产物数量及产物信息
+        IndustryactivityproductsEntity indatp = bps.findIndAtProBy(typeid,1);
+        bpi.setProduct_num(indatp.getQuantity());
+        bpi.setProductinfo(bps.findInvtypeByTypeid(indatp.getProductTypeId()));
+        //制造产物的时间
+        bpi.setIndustryTime(bps.findTimeBytypeid(typeid,1).getTime());
+        //查询该蓝图是否是由其他蓝图发明的
+        IndustryactivityproductsEntity inventproduct = bps.findIndAtProByProId(typeid,8);
+        if(inventproduct!=null){
+            //如果是由其他蓝图发明的，则设置发明相关的原材料及发明率等数据
+            //发明的蓝图流程数
+            bpi.setLine_num(inventproduct.getQuantity());
+            //发明的成功率
+            bpi.setInventProbablity(bps.findProbabilByProid(typeid).getProbability().add(EitConfigInfo.IVENT_PROBABITY));
+            //发明的原材料
+            List<IndustryactivitymaterialsEntity> inventMalist =  bps.findMaterialByTypeid(inventproduct.getTypeId(),8);
+            bpi.setInventMaterial(inventMalist);
+        }
+        //下面是最关键的递归查询该蓝图的制造原材料数据
+        List<IndustryactivitymaterialsEntity> productMaterlist = bps.findMaterialByTypeid(typeid,1);
+        List<BluePrintMaterialList> bpmls = new ArrayList<BluePrintMaterialList>();
+        for(int i=0;i<productMaterlist.size();i++){
+            BluePrintMaterialList bpml = new BluePrintMaterialList();
+
+            bpml.setIndustryactivitymaterialsEntity(productMaterlist.get(i));
+            IndustryactivityproductsEntity indatpro = bps.findIndAtProByProId(productMaterlist.get(i).getMaterialTypeId(),1);
+            //如果不为空则表示该物品还有下一级蓝图原材料可以使用，需要设置BluePrintInfo对象
+            if(indatp!=null){
+                //首先判断该蓝图是否已经在map里了，如果在直接获取
+                int sub_typeid = indatpro.getTypeId();
+                if(map.get(indatpro.getTypeId())!=null){
+                    bpml.setBluePrintInfo(map.get(sub_typeid));
+                }else{
+                    createBluePrintInfo(bps,bps.findInvtypeByTypeid(sub_typeid),map);
+                    bpml.setBluePrintInfo(map.get(sub_typeid));
+                }
+            }
+            bpmls.add(bpml);
+        }
+        bpi.setProductMaterials(bpmls);
+        map.put(typeid,bpi);
     }
 }

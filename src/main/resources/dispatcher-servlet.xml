@@ -49,5 +49,6 @@
        <!--下面是定义的一些Spring的服务bean-->
        <bean id="marketGroupService" class="com.mageeyang.eit.service.MarketGroupService" autowire="byName"></bean>
        <bean id="priceRequestService" class="com.mageeyang.eit.service.PriceRequestService" autowire="byName"></bean>
+       <bean id="bluePrintService" class="com.mageeyang.eit.service.BluePrintService" autowire="byName"></bean>
 
 </beans>

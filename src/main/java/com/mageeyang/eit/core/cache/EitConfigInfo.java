@@ -3,6 +3,7 @@ package com.mageeyang.eit.core.cache;
 import com.mageeyang.eit.db.bean.BluePrintInfo;
 import com.mageeyang.eit.db.model.InvmarketgroupsEntity;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -10,6 +11,7 @@ import java.util.HashMap;
  * Created by Administrator on 2016/1/4.
  */
 public class EitConfigInfo {
+    public static final BigDecimal IVENT_PROBABITY = new BigDecimal(0.1);
     //用于一次从eve-centrol获取价格的数据条数
     public static final int COW_NUM = 50;
     //用于获取价格的url前缀地址

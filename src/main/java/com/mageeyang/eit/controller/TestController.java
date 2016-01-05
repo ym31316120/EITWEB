@@ -8,6 +8,7 @@ import com.mageeyang.eit.db.repository.InvTypesRepository;
 import com.mageeyang.eit.db.repository.MarketGroupRepository;
 import com.mageeyang.eit.core.util.BeanUtils;
 import com.mageeyang.eit.db.repository.PricehistoryRepository;
+import com.mageeyang.eit.service.BluePrintService;
 import com.mageeyang.eit.service.InitService;
 import com.mageeyang.eit.service.MarketGroupService;
 import com.mageeyang.eit.service.PriceRequestService;
@@ -42,6 +43,10 @@ public class TestController {
         // 找到user表里的所有记录
         List<InvtypesEntity> userList = new ArrayList<InvtypesEntity>();
         userList = invTypesRepository.findBymarketGroupId(1857);
+
+        BluePrintService bluePrintService = BeanUtils.getBean("bluePrintService");
+
+        System.out.println(bluePrintService.findByTypeIdAndActivityId(683,1).toString());
 
 
 
