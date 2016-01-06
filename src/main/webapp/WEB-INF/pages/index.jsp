@@ -139,8 +139,9 @@
             </script>
         </div>
 
-        <div class="main-content">
-            <iframe src="/test" width="100%" height="100%" frameborder="no" border="0"></iframe>
+        <div class="main-content" style="height: 650px">
+            <iframe src="/bpMain" id="mainframe" name="mainframe" width="100%" height="100%" frameborder="no" border="0"
+                     ></iframe>
         </div>
 
     </div>

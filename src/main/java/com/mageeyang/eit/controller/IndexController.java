@@ -13,4 +13,9 @@ public class IndexController {
     public String index(ModelMap modelMap){
         return "index";
     }
+
+    @RequestMapping("bpMain")
+    public String bpMain(){
+        return "blueprintmain";
+    }
 }

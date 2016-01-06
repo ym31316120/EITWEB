@@ -145,7 +145,7 @@ tree_data_2['pictures']['additionalParameters']['children']['wallpapers']['addit
 }
 tree_data_2['pictures']['additionalParameters']['children']['camera']['additionalParameters'] = {
 	'children' : [
-		{name: '<i class="icon-picture green"></i> photo1.jpg', type: 'item'},
+		{name: '<i class="icon-picture green"></i><a href="#" onclick="alert(1)">photo1.jpg</a> ', type: 'item'},
 		{name: '<i class="icon-picture green"></i> photo2.jpg', type: 'item'},
 		{name: '<i class="icon-picture green"></i> photo3.jpg', type: 'item'},
 		{name: '<i class="icon-picture green"></i> photo4.jpg', type: 'item'},
