@@ -11,6 +11,9 @@ import java.util.HashMap;
  * Created by Administrator on 2016/1/4.
  */
 public class EitConfigInfo {
+    //星系收取的制造税及交易税总和
+    public static final BigDecimal TAX = new BigDecimal(0.05);
+    //人物的技能提供的发明成功率
     public static final BigDecimal IVENT_PROBABITY = new BigDecimal(0.1);
     //用于一次从eve-centrol获取价格的数据条数
     public static final int COW_NUM = 50;
@@ -26,6 +29,8 @@ public class EitConfigInfo {
     private static ArrayList<InvmarketgroupsEntity> bluemarketgroups = new ArrayList<InvmarketgroupsEntity>();
     //用于存放处理好的蓝图信息
     private static HashMap<Integer,BluePrintInfo> bluePrintInfoHashMap = new HashMap<Integer, BluePrintInfo>();
+
+    private static ArrayList<Integer> bpMarketGroupids = new ArrayList<Integer>();
 
     public static ArrayList<String> getTypeslist() {
         return typeslist;
@@ -57,5 +62,13 @@ public class EitConfigInfo {
 
     public static void setBluemarketgroups(ArrayList<InvmarketgroupsEntity> bluemarketgroups) {
         EitConfigInfo.bluemarketgroups = bluemarketgroups;
+    }
+
+    public static ArrayList<Integer> getBpMarketGroupids() {
+        return bpMarketGroupids;
+    }
+
+    public static void setBpMarketGroupids(ArrayList<Integer> bpMarketGroupids) {
+        EitConfigInfo.bpMarketGroupids = bpMarketGroupids;
     }
 }

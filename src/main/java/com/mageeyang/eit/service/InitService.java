@@ -20,6 +20,7 @@ import java.util.List;
 public class InitService {
     /**
      * 1857    矿石产物
+     * 1887    发明材料
      * 499     月矿产物
      * 1332    行星产物
      * 1861    打捞件
@@ -28,8 +29,9 @@ public class InitService {
      * 4       舰船
      * 9       舰船装备
      * 11      弹药
+     * 20      贸易物品
      */
-    private static final int[] MARKETGROUPLIST = {1857, 499, 1332, 1861, 1033, 860, 4, 9, 11};
+    private static final int[] MARKETGROUPLIST = {1857,1872, 499, 1332, 1861, 1033, 860, 4, 9, 11,19};
 
 
     /**
@@ -87,20 +89,23 @@ public class InitService {
         BluePrintService bluePrintService = BeanUtils.getBean("bluePrintService");
         //首先获取所有的蓝图基础信息列表
         ArrayList<InvmarketgroupsEntity> bluemarketgroups = new ArrayList<InvmarketgroupsEntity>();
-        marketGroupService.getChildListListByParentId(bluemarketgroups, 2);
+        marketGroupService.getChildListListByParentId(bluemarketgroups, 204);
+        marketGroupService.getChildListListByParentId(bluemarketgroups, 209);
+        marketGroupService.getChildListListByParentId(bluemarketgroups, 943);
         EitConfigInfo.setBluemarketgroups(bluemarketgroups);
 
         ArrayList<Integer> marketgroupids = new ArrayList<Integer>();
         for (int i = 0; i < bluemarketgroups.size(); i++) {
             marketgroupids.add(bluemarketgroups.get(i).getMarketGroupId());
         }
+        EitConfigInfo.setBpMarketGroupids(marketgroupids);
         List<InvtypesEntity> bluebaseinfo = marketGroupService.getTypesByMarketGroupIds(marketgroupids);
         for (int i = 0; i < bluebaseinfo.size(); i++) {
 
-
+            BluePrintInfo bpi = new BluePrintInfo();
             int typeid = bluebaseinfo.get(i).getTypeId();
             if (bluePrintInfoHashMap.get(typeid) == null) {
-                createBluePrintInfo(bluePrintService, bluebaseinfo.get(i), bluePrintInfoHashMap);
+                createBluePrintInfo(bpi,bluePrintService, bluebaseinfo.get(i), bluePrintInfoHashMap);
             }
         }
         EitConfigInfo.setBluePrintInfoHashMap(bluePrintInfoHashMap);
@@ -115,8 +120,8 @@ public class InitService {
      * @param ite 蓝图的基本信息
      * @param map 对蓝图信息进行判断
      */
-    public static void createBluePrintInfo(BluePrintService bps, InvtypesEntity ite, HashMap<Integer, BluePrintInfo> map) {
-        BluePrintInfo bpi = new BluePrintInfo();
+    public static void createBluePrintInfo(BluePrintInfo bpi,BluePrintService bps, InvtypesEntity ite, HashMap<Integer, BluePrintInfo> map) {
+
         int typeid = ite.getTypeId();
         //填入蓝图基本信息
         bpi.setBlueprint(ite);
@@ -139,6 +144,10 @@ public class InitService {
             //发明的原材料
             List<IndustryactivitymaterialsEntity> inventMalist = bps.findMaterialByTypeid(inventproduct.getTypeId(), 8);
             bpi.setInventMaterial(inventMalist);
+            //发明出来的蓝图材料研究节省成本一般默认为2%
+            bpi.setMt(0.98);
+        }else{
+            bpi.setMt(0.9);
         }
         //下面是最关键的递归查询该蓝图的制造原材料数据
         List<IndustryactivitymaterialsEntity> productMaterlist = bps.findMaterialByTypeid(typeid, 1);
@@ -155,7 +164,9 @@ public class InitService {
                 if (map.get(indatpro.getTypeId()) != null) {
                     bpml.setBluePrintInfo(map.get(sub_typeid));
                 } else {
-                    createBluePrintInfo(bps, bps.findInvtypeByTypeid(sub_typeid), map);
+                    BluePrintInfo bpi_sub = new BluePrintInfo();
+                    //只要是由下一级蓝图原材料的蓝图材料研究均为0.9
+                    createBluePrintInfo(bpi_sub, bps, bps.findInvtypeByTypeid(sub_typeid), map);
                     bpml.setBluePrintInfo(map.get(sub_typeid));
                 }
             }
@@ -170,6 +181,13 @@ public class InitService {
         PriceRequestService priceRequestService = BeanUtils.getBean("priceRequestService");
         priceRequestService.getPrice();
         System.out.println("初始化原材料价格数据结束");
+    }
+
+    public static void initBluePrintPrice(){
+        System.out.println("正在初始化蓝图成本利润信息...");
+        PriceRequestService priceRequestService = BeanUtils.getBean("priceRequestService");
+        priceRequestService.getBluePrice();
+        System.out.println("初始化蓝图成本利润信息结束");
     }
 
 }
