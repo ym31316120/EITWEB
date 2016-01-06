@@ -16,6 +16,7 @@
     <title></title>
 </head>
 <body>
+你好
 <c:if test="${!empty userList}">
     <table class="table table-bordered table-striped">
         <tr>

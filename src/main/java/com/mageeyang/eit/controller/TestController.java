@@ -44,29 +44,29 @@ public class TestController {
     @RequestMapping("test")
     public String test(ModelMap modelMap){
         // 找到user表里的所有记录
-        List<InvtypesEntity> userList = new ArrayList<InvtypesEntity>();
-        userList = invTypesRepository.findBymarketGroupId(1857);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date startDate = null;
-        Date endDate = null;
-        try{
-            startDate = sdf.parse("2016-01-05"+" 00:00:00");
-            endDate = sdf.parse("2016-01-05"+" 23:59:59");
-        }catch(ParseException e){
-            e.printStackTrace();
-        }
-
-
-//        List<PricehistoryEntity> pricehistoryEntityLists = pricehistoryRepository.findByPricedateBetween(startDate,endDate);
-//        System.out.println(pricehistoryEntityLists.size());
-
-        BluePrintInfo bluePrintInfo = EitConfigInfo.getBluePrintInfoHashMap().get(12006);
+//        List<InvtypesEntity> userList = new ArrayList<InvtypesEntity>();
+//        userList = invTypesRepository.findBymarketGroupId(1857);
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        Date startDate = null;
+//        Date endDate = null;
+//        try{
+//            startDate = sdf.parse("2016-01-05"+" 00:00:00");
+//            endDate = sdf.parse("2016-01-05"+" 23:59:59");
+//        }catch(ParseException e){
+//            e.printStackTrace();
+//        }
+//
+//
+////        List<PricehistoryEntity> pricehistoryEntityLists = pricehistoryRepository.findByPricedateBetween(startDate,endDate);
+////        System.out.println(pricehistoryEntityLists.size());
+//
+//        BluePrintInfo bluePrintInfo = EitConfigInfo.getBluePrintInfoHashMap().get(12006);
 
 //        MarketGroupService t = BeanUtils.getBean("marketGroupService");
 //        t.getChildListListByParentId(userList,1861);
        // System.out.println(EitConfigInfo.getPrimitiveList().toString());
         // 将所有记录传递给返回的jsp页面
-        modelMap.addAttribute("userList", userList);
+//        modelMap.addAttribute("userList", userList);
 
 //
 

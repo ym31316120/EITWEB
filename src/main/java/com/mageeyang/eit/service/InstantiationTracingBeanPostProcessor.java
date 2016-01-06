@@ -17,17 +17,17 @@ public class InstantiationTracingBeanPostProcessor implements ApplicationListene
         if(event.getApplicationContext().getParent() == null){
             //判断是否是root节点，如果是则执行初始化信息操作
             //下方是初始化需要获取的原材料价格的typeid的列表，方便定时获取价格任务的读取
-            InitService.initEitConfig();
+//            InitService.initEitConfig();
 
             //初始化蓝图信息
-            InitService.initBluePrintInfo();
+//            InitService.initBluePrintInfo();
 
 
             //初始化价格数据
 //            InitService.initPrice();
 
             //初始化蓝图价格数据
-            InitService.initBluePrintPrice();
+//            InitService.initBluePrintPrice();
 
 //            PriceRequestService priceRequestService = BeanUtils.getBean("priceRequestService");
 //            priceRequestService.getPrice();
