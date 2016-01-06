@@ -48,7 +48,7 @@ public class PriceRequestService {
         List<PricehistoryEntity> pricehistoryEntityList = new ArrayList<PricehistoryEntity>();
         ArrayList<String> typeslist = EitConfigInfo.getTypeslist();
         ArrayList<JSONArray> priceJsonArrayList = new ArrayList<JSONArray>();
-        HttpUtil httpUtil = new HttpUtil(10000,"172.20.182.207",808);
+        HttpUtil httpUtil = new HttpUtil(10000);
         for (int i = 0; i < typeslist.size(); i++) {
             String url = EitConfigInfo.URL_BEGIN + typeslist.get(i);
             JSONArray jsonArray = httpUtil.getJsonArray(url);
@@ -129,13 +129,14 @@ public class PriceRequestService {
         BlueprintpriceEntity bppe = new BlueprintpriceEntity();
         MathContext mc = new MathContext(2, RoundingMode.HALF_DOWN);
         bppe.setTypeid(bpi.getBlueprint().getTypeId());
+        bppe.setMarketgroupid(bpi.getBlueprint().getMarketGroupId());
+        bppe.setTypename(bpi.getProductinfo().getTypeName());
         bppe.setBpdate(ts);
         bppe.setTypegroup(type);
         bppe.setMaterialcost(mCost);
         bppe.setInventcost(invCost);
         BigDecimal total = mCost.add(invCost);
         bppe.setFacilityfee(total.multiply(EitConfigInfo.TAX));
-        System.out.println(total.stripTrailingZeros().toPlainString());
         BigDecimal totalCost = total.add(total.multiply(EitConfigInfo.TAX));
         bppe.setTotalcost(totalCost);
         BigDecimal sellPrice = new BigDecimal(0);
@@ -153,7 +154,6 @@ public class PriceRequestService {
         bppe.setSellprice(sellPrice);
         bppe.setIncome(sellPrice.subtract(totalCost));
         if(!totalCost.stripTrailingZeros().toPlainString().equals("0")) {
-            System.out.println(totalCost.stripTrailingZeros().toPlainString());
             bppe.setProfit(sellPrice.subtract(totalCost).divide(totalCost,mc).multiply(new BigDecimal(100)));
         }
         //分析物品的销售情况
@@ -176,15 +176,12 @@ public class PriceRequestService {
         for (int i = 0; i < phes.size(); i++) {
             priceMap.put(phes.get(i).getTypeid(), phes.get(i));
         }
-        System.out.println("获取价格数据大小为："+phes.size());
         //获取蓝图列表
         List<InvtypesEntity> bplists = invTypesRepository.findBymarketGroupIdIn(EitConfigInfo.getBpMarketGroupids());
         HashMap<Integer, BluePrintInfo> map = EitConfigInfo.getBluePrintInfoHashMap();
         for (int i = 0; i < bplists.size(); i++) {
             //循环蓝图，到缓存map中查找蓝图的详细信息，然后统计蓝图价格
             BluePrintInfo bpi = map.get(bplists.get(i).getTypeId());
-
-            System.out.println("蓝图编码="+bpi.getBlueprint().getTypeId()+";名称="+bpi.getBlueprint().getTypeName());
 
             //首先获取蓝图成品价格
             PricehistoryEntity productPrice = priceMap.get(bpi.getProductinfo().getTypeId());
@@ -203,13 +200,10 @@ public class PriceRequestService {
                 IndustryactivitymaterialsEntity indAtMat = bpmls.get(j).getIndustryactivitymaterialsEntity();
                 PricehistoryEntity phe_z = priceMap.get(indAtMat.getMaterialTypeId());
                 if (sub_bpi == null) {
-                    System.out.println("没有下一级蓝图");
                     //该原材料为底层原材料
                     mCost_sell = mCost_sell.add(phe_z.getSellmin().multiply(BigDecimal.valueOf(Math.ceil(indAtMat.getQuantity()*bpi.getMt()))));
                     mCost_buy = mCost_buy.add(phe_z.getBuymax().multiply(BigDecimal.valueOf(Math.ceil(indAtMat.getQuantity() * bpi.getMt()))));
-                    System.out.println("---2---"+mCost_sell);
                 } else {
-                    System.out.println("有下一级蓝图");
                     for (int k = 0; k < sub_bpi.getProductMaterials().size(); k++) {
                         IndustryactivitymaterialsEntity z_indAtMat = sub_bpi.getProductMaterials().get(k).getIndustryactivitymaterialsEntity();
                         PricehistoryEntity z_phe = priceMap.get(z_indAtMat.getMaterialTypeId());
@@ -222,7 +216,6 @@ public class PriceRequestService {
                                 .multiply(BigDecimal.valueOf(Math.ceil(indAtMat.getQuantity() * bpi.getMt()))));
                     }
                 }
-                System.out.println("成本费用："+mCost_sell);
             }
 
             //统计发明成本
@@ -245,8 +238,8 @@ public class PriceRequestService {
             BlueprintpriceEntity bppe_3 = createBluePrintPrice(bpi,timestamp,3,mCost_buy,inventCost,productPrice);
 
 
-//            bluePrintPriceRepository.save(bppe_2);
-//            bluePrintPriceRepository.save(bppe_3);
+            bluePrintPriceRepository.save(bppe_2);
+            bluePrintPriceRepository.save(bppe_3);
             bluePrintPriceRepository.save(bppe_1);
         }
 

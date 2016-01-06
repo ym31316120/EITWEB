@@ -14,6 +14,7 @@ public class BlueprintpriceEntity {
     private int typeid;
     private int typegroup;
     private Timestamp bpdate;
+    private Integer marketgroupid;
     private String typename;
     private BigDecimal materialcost;
     private BigDecimal inventcost;
@@ -52,6 +53,16 @@ public class BlueprintpriceEntity {
 
     public void setBpdate(Timestamp bpdate) {
         this.bpdate = bpdate;
+    }
+
+    @Basic
+    @Column(name = "marketgroupid", nullable = true, insertable = true, updatable = true)
+    public Integer getMarketgroupid() {
+        return marketgroupid;
+    }
+
+    public void setMarketgroupid(Integer marketgroupid) {
+        this.marketgroupid = marketgroupid;
     }
 
     @Basic
@@ -154,6 +165,8 @@ public class BlueprintpriceEntity {
         if (typeid != that.typeid) return false;
         if (typegroup != that.typegroup) return false;
         if (bpdate != null ? !bpdate.equals(that.bpdate) : that.bpdate != null) return false;
+        if (marketgroupid != null ? !marketgroupid.equals(that.marketgroupid) : that.marketgroupid != null)
+            return false;
         if (typename != null ? !typename.equals(that.typename) : that.typename != null) return false;
         if (materialcost != null ? !materialcost.equals(that.materialcost) : that.materialcost != null) return false;
         if (inventcost != null ? !inventcost.equals(that.inventcost) : that.inventcost != null) return false;
@@ -172,6 +185,7 @@ public class BlueprintpriceEntity {
         int result = typeid;
         result = 31 * result + typegroup;
         result = 31 * result + (bpdate != null ? bpdate.hashCode() : 0);
+        result = 31 * result + (marketgroupid != null ? marketgroupid.hashCode() : 0);
         result = 31 * result + (typename != null ? typename.hashCode() : 0);
         result = 31 * result + (materialcost != null ? materialcost.hashCode() : 0);
         result = 31 * result + (inventcost != null ? inventcost.hashCode() : 0);

@@ -6,7 +6,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,22 +36,7 @@
 <body>
 
 
-<div class="breadcrumbs" id="breadcrumbs">
-    <script type="text/javascript">
-        try {
-            ace.settings.check('breadcrumbs', 'fixed')
-        } catch (e) {
-        }
-    </script>
 
-    <ul class="breadcrumb">
-        <li>
-            <i class="icon-home home-icon"></i>
-            EvE
-        </li>
-        <li class="active">BluePrint</li>
-    </ul>
-</div>
 
 <div class="page-content">
 
@@ -60,39 +44,7 @@
     <div class="row">
         <div class="col-xs-12">
 
-            <div class="row">
-                <div class="col-sm-3">
-                    <div class="widget-box">
-                        <div class="widget-header header-color-blue2">
-                            <h4 class="lighter smaller">BluePrint Group</h4>
-                        </div>
 
-                        <div class="widget-body">
-                            <div class="widget-main padding-8">
-                                <div id="tree1" class="tree"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-9">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <iframe src="/bpList" id="blueListFrame" name="blueListFrame" style="padding: 0px; width: 100%; height: 365px;" frameborder="no" border="0"
-                                    ></iframe>
-                        </div>
-                    </div>
-
-                    <div class="space-6"></div>
-
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <iframe src="/bpdetailCart" id="blueDetailCartFrame" name="blueDetailCartFrame" style="padding: 0px; width: 100%; height: 200px;" frameborder="no" border="0"
-                                    ></iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <!-- PAGE CONTENT ENDS -->
         </div>
         <!-- /.col -->

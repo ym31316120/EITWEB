@@ -139,9 +139,9 @@
             </script>
         </div>
 
-        <div class="main-content" style="height: 650px">
-            <iframe src="/bpMain" id="mainframe" name="mainframe" width="100%" height="100%" frameborder="no" border="0"
-                     ></iframe>
+        <div class="main-content">
+            <iframe src="/bpMain" id="mainFrame" name="mainFrame" style="padding: 0px; width: 100%; height: 700px;" frameborder="no" border="0"
+                    ></iframe>
         </div>
 
     </div>
@@ -182,7 +182,9 @@
 
 <script src="assets/js/ace-elements.min.js"></script>
 <script src="assets/js/ace.min.js"></script>
+<script type="text/javascript">
 
+</script>
 
 </body>
 </html>

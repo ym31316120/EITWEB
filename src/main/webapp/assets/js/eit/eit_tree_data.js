@@ -52,6 +52,17 @@ bluePrintGroups_data['Ships']['additionalParameters'] = {
         {name: '<i class="icon-fighter-jet blue"></i><a onclick="bluePrintTreeClick(582)">Destroyers</a>', type: 'item'},
         {name: '<i class="icon-fighter-jet blue"></i><a onclick="bluePrintTreeClick(588)">Battlecruisers</a>', type: 'item'},
         {name: '<i class="icon-fighter-jet blue"></i><a onclick="bluePrintTreeClick(634)">Transport Ships</a>', type: 'item'},
+        {name: '<i class="icon-fighter-jet blue"></i><a onclick="bluePrintTreeClick(782)">Dreadnoughts</a>', type: 'item'},
+        {name: '<i class="icon-fighter-jet blue"></i><a onclick="bluePrintTreeClick(787)">Freighters</a>', type: 'item'},
+        {name: '<i class="icon-fighter-jet blue"></i><a onclick="bluePrintTreeClick(878)">Titans</a>', type: 'item'},
+        {name: '<i class="icon-fighter-jet blue"></i><a onclick="bluePrintTreeClick(879)">Carriers</a>', type: 'item'},
+        {name: '<i class="icon-fighter-jet blue"></i><a onclick="bluePrintTreeClick(880)">Interdictors</a>', type: 'item'},
+        {name: '<i class="icon-fighter-jet blue"></i><a onclick="bluePrintTreeClick(881)">Command Ships</a>', type: 'item'},
+        {name: '<i class="icon-fighter-jet blue"></i><a onclick="bluePrintTreeClick(882)">Recon Ships</a>', type: 'item'},
+        {name: '<i class="icon-fighter-jet blue"></i><a onclick="bluePrintTreeClick(883)">Exhumers</a>', type: 'item'},
+        {name: '<i class="icon-fighter-jet blue"></i><a onclick="bluePrintTreeClick(1045)">Capital Industrial Ships</a>', type: 'item'},
+        {name: '<i class="icon-fighter-jet blue"></i><a onclick="bluePrintTreeClick(2123)">Command Destroyers</a>', type: 'item'},
+
     ]
 }
 bluePrintGroups_data['ShipEquipment']['additionalParameters'] = {
