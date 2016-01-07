@@ -61,27 +61,29 @@
                     <tbody>
                     <c:if test="${!empty bluepricelist}">
                         <c:forEach items="${bluepricelist}" var="bpl">
+                            <tr>
 
-                            <td class="center">
-                                <a href="#">${bpl.typename}</a>
-                            </td>
+                                <td class="center">
+                                    <a href="#">${bpl.typename}</a>
+                                </td>
 
-                            <td>
-                                    ${bpl.materialcost}
-                            </td>
-                            <td>${bpl.facilityfee}</td>
-                            <td>${bpl.sellprice}</td>
-                            <c:if test="${ bpl.income>=0}">
-                                <td style="color: forestgreen">${bpl.income}</td>
-                            </c:if>
-                            <c:if test="${ bpl.income<0}">
-                                <td style="color: red">${bpl.income}</td>
-                            </c:if>
-                            <td>${bpl.profit}</td>
+                                <td>
+                                        ${bpl.materialcost}
+                                </td>
+                                <td>${bpl.facilityfee}</td>
+                                <td>${bpl.sellprice}</td>
+                                <c:if test="${ bpl.income>=0}">
+                                    <td style="color: forestgreen">${bpl.income}</td>
+                                </c:if>
+                                <c:if test="${ bpl.income<0}">
+                                    <td style="color: red">${bpl.income}</td>
+                                </c:if>
+                                <td>${bpl.profit}</td>
 
                             </tr>
                         </c:forEach>
                     </c:if>
+
 
                     </tbody>
                 </table>
@@ -127,11 +129,8 @@
         var oTable1 = $('#sample-table-2').dataTable({
             "bFilter": false,
             "iDisplayLength": 5,
-            "bLengthChange": false,
-            "aoColumns": [
-                {"bSortable": false},
-                null, null, null, null, null,
-                {"bSortable": false}]
+            "bLengthChange": false
+
         });
     })
 

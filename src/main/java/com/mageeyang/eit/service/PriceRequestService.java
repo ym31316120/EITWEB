@@ -136,8 +136,8 @@ public class PriceRequestService {
         bppe.setMaterialcost(mCost);
         bppe.setInventcost(invCost);
         BigDecimal total = mCost.add(invCost);
-        bppe.setFacilityfee(total.multiply(EitConfigInfo.TAX));
-        BigDecimal totalCost = total.add(total.multiply(EitConfigInfo.TAX));
+        bppe.setFacilityfee(mCost.multiply(EitConfigInfo.TAX));
+        BigDecimal totalCost = total.add(mCost.multiply(EitConfigInfo.TAX));
         bppe.setTotalcost(totalCost);
         BigDecimal sellPrice = new BigDecimal(0);
         switch (type){
@@ -151,7 +151,7 @@ public class PriceRequestService {
                 sellPrice = productPrice.getBuymax();
                 break;
         }
-        bppe.setSellprice(sellPrice);
+        bppe.setSellprice(sellPrice.multiply(BigDecimal.valueOf(bpi.getProduct_num())));
         bppe.setIncome(sellPrice.subtract(totalCost));
         if(!totalCost.stripTrailingZeros().toPlainString().equals("0")) {
             bppe.setProfit(sellPrice.subtract(totalCost).divide(totalCost,mc).multiply(new BigDecimal(100)));
@@ -201,13 +201,16 @@ public class PriceRequestService {
                 PricehistoryEntity phe_z = priceMap.get(indAtMat.getMaterialTypeId());
                 if (sub_bpi == null) {
                     //该原材料为底层原材料
+                    bpmls.get(j).setSellPrice(phe_z.getSellmin());
+                    bpmls.get(j).setBuyPrice(phe_z.getBuymax());
                     mCost_sell = mCost_sell.add(phe_z.getSellmin().multiply(BigDecimal.valueOf(Math.ceil(indAtMat.getQuantity()*bpi.getMt()))));
                     mCost_buy = mCost_buy.add(phe_z.getBuymax().multiply(BigDecimal.valueOf(Math.ceil(indAtMat.getQuantity() * bpi.getMt()))));
                 } else {
                     for (int k = 0; k < sub_bpi.getProductMaterials().size(); k++) {
                         IndustryactivitymaterialsEntity z_indAtMat = sub_bpi.getProductMaterials().get(k).getIndustryactivitymaterialsEntity();
                         PricehistoryEntity z_phe = priceMap.get(z_indAtMat.getMaterialTypeId());
-
+                        sub_bpi.getProductMaterials().get(k).setSellPrice(z_phe.getSellmin());
+                        sub_bpi.getProductMaterials().get(k).setBuyPrice(z_phe.getBuymax());
                         mCost_sell = mCost_sell.add(z_phe.getSellmin()
                                 .multiply(BigDecimal.valueOf(Math.ceil(z_indAtMat.getQuantity() * sub_bpi.getMt())))
                                 .multiply(BigDecimal.valueOf(Math.ceil(indAtMat.getQuantity() * bpi.getMt()))));
@@ -227,7 +230,7 @@ public class PriceRequestService {
                     PricehistoryEntity z_phe = priceMap.get(z_indAtMat.getMaterialTypeId());
                     inventCost = inventCost.add(z_phe.getSellmin().multiply(BigDecimal.valueOf(z_indAtMat.getQuantity())));
                 }
-                inventCost = inventCost.subtract(BigDecimal.valueOf(bpi.getInventProbablity()));
+                inventCost = inventCost.subtract(BigDecimal.valueOf(bpi.getInventProbablity())).subtract(BigDecimal.valueOf(bpi.getLine_num()));
             }
 
             //生成蓝图价格信息,(1)sell-sell
@@ -242,6 +245,8 @@ public class PriceRequestService {
             bluePrintPriceRepository.save(bppe_3);
             bluePrintPriceRepository.save(bppe_1);
         }
+
+        EitConfigInfo.setBluePrintInfoHashMap(map);
 
     }
 

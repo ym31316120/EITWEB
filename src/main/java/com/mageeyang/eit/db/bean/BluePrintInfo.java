@@ -25,6 +25,8 @@ public class BluePrintInfo {
 
     private double Mt;  //蓝图的材料研究效率
 
+    private BlueprintpriceEntity blueprice;  //蓝图的成本及利润信息
+
     public InvtypesEntity getBlueprint() {
         return blueprint;
     }
@@ -95,5 +97,13 @@ public class BluePrintInfo {
 
     public void setLine_num(int line_num) {
         this.line_num = line_num;
+    }
+
+    public BlueprintpriceEntity getBlueprice() {
+        return blueprice;
+    }
+
+    public void setBlueprice(BlueprintpriceEntity blueprice) {
+        this.blueprice = blueprice;
     }
 }

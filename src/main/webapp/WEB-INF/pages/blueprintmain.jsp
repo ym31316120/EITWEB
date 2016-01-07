@@ -78,12 +78,12 @@
                 <div class="col-sm-9">
                     <div class="row">
                         <div class="col-xs-12">
-                            <iframe src="/bpList" id="blueListFrame" name="blueListFrame" style="padding: 0px; width: 100%; height: 365px;" frameborder="no" border="0"
+                            <iframe src="/bpList" id="blueListFrame" name="blueListFrame" style="padding: 0px; width: 100%; height: 340px;" frameborder="no" border="0"
                                     ></iframe>
                         </div>
                     </div>
 
-                    <div class="space-6"></div>
+                    <div class="space-2"></div>
 
                     <div class="row">
                         <div class="col-xs-12">

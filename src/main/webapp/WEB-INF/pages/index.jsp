@@ -140,7 +140,7 @@
         </div>
 
         <div class="main-content">
-            <iframe src="/bpMain" id="mainFrame" name="mainFrame" style="padding: 0px; width: 100%; height: 700px;" frameborder="no" border="0"
+            <iframe src="/bpMain" id="mainFrame" name="mainFrame" style="padding: 0px; width: 100%; height:650px;" frameborder="no" border="0"
                     ></iframe>
         </div>
 
