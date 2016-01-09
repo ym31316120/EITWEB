@@ -96,6 +96,7 @@ public class PriceRequestService {
         for (int k = 0; k < pricehistoryEntityList.size(); k++) {
             pricehistoryRepository.save(pricehistoryEntityList.get(k));
         }
+        System.out.println("保存价格数据完成");
 
     }
 
@@ -169,10 +170,13 @@ public class PriceRequestService {
      * 统计蓝图的制造成本及利润
      */
     public void getBluePrice() {
+        System.out.println("开始获取蓝图成本利润信息");
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         HashMap<Integer, PricehistoryEntity> priceMap = new HashMap<Integer, PricehistoryEntity>();
         //将当天价格都放到map中方便查找
-        List<PricehistoryEntity> phes = findbydate("2016-01-06");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-mm-dd");//设置日期格式
+        System.out.println(df.format(new Date()));// new Date()为获取当前系统时间
+        List<PricehistoryEntity> phes = findbydate(df.format(new Date()));
         for (int i = 0; i < phes.size(); i++) {
             priceMap.put(phes.get(i).getTypeid(), phes.get(i));
         }
@@ -245,7 +249,7 @@ public class PriceRequestService {
             bluePrintPriceRepository.save(bppe_3);
             bluePrintPriceRepository.save(bppe_1);
         }
-
+        System.out.println("完成蓝图价格获取");
         EitConfigInfo.setBluePrintInfoHashMap(map);
 
     }

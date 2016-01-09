@@ -29,10 +29,10 @@
               <property name="prefix" value="/WEB-INF/pages/"/>
               <property name="suffix" value=".jsp"/>
        </bean>
-       <!-- 创建Spring定时任务-->
-       <!--<task:scheduled-tasks>-->
-       <!--<task:scheduled ref="taskJob" method="InitPriceAndBluePrintPrice" cron="0 15 12 * * ?"/>-->
-       <!--</task:scheduled-tasks>-->
+        <!--创建Spring定时任务-->
+       <task:scheduled-tasks>
+       <task:scheduled ref="taskJob" method="InitPriceAndBluePrintPrice" cron="0 15 12 * * ?"/>
+       </task:scheduled-tasks>
 
        <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
               <property name="persistenceUnitName" value="defaultPersistenceUnit"/>

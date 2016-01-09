@@ -1,6 +1,7 @@
 package com.mageeyang.eit.controller;
 
 import com.mageeyang.eit.core.util.BeanUtils;
+import com.mageeyang.eit.service.InitService;
 import com.mageeyang.eit.service.PriceRequestService;
 import org.springframework.stereotype.Service;
 
@@ -11,8 +12,7 @@ import org.springframework.stereotype.Service;
 public class TaskJob {
 
     public void InitPriceAndBluePrintPrice(){
-        PriceRequestService priceRequestService = BeanUtils.getBean("priceRequestService");
-        priceRequestService.getPrice();
-        priceRequestService.getBluePrice();
+        InitService.initPrice();
+        InitService.initBluePrintPrice();
     }
 }
